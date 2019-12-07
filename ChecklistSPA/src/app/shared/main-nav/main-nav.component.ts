@@ -15,7 +15,7 @@ export class MainNavComponent {
       map(result => result.matches),
       shareReplay()
     );
-  isLoggedIn = true;
+  isLoggedIn = false;
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 

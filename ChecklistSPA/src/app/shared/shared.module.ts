@@ -10,6 +10,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ FooterComponent, MainNavComponent],
@@ -23,7 +27,12 @@ import { MatListModule } from '@angular/material/list';
     MatToolbarModule,
     MatSidenavModule,
     LayoutModule,
-    MatListModule
+    MatListModule,
+    RouterModule,
+    MatCardModule,
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     MatFormFieldModule,
@@ -34,7 +43,12 @@ import { MatListModule } from '@angular/material/list';
     MatInputModule,
     MatTabsModule,
     MatToolbarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    RouterModule,
+    MatCardModule,
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }
