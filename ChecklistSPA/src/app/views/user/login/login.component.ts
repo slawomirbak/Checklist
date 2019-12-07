@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login(loginForm: LoginCredentials) {
+  loginUser(loginForm: LoginCredentials) {
   // TODO Send form
   }
 
