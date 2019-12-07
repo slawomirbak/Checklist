@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { RegisterCredentials } from 'src/app/interfaces/RegisterCredentials';
 import { passwordMatcher, PasswordVerifyErrorMatcher } from 'src/app/validators/passwordMatcher';
-import { SecurePasswordErrorMatcher, securePassword } from 'src/app/validators/securePassword';
+import { securePassword } from 'src/app/validators/securePassword';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +14,6 @@ export class RegisterComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
   registerForm: FormGroup;
   verifyPasswordMatcher = new PasswordVerifyErrorMatcher();
-  securePasswordMatcher = new SecurePasswordErrorMatcher();
 
   ngOnInit() {
     this.registerForm = this.fb.group({
