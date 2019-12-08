@@ -3,6 +3,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { RegisterCredentials } from 'src/app/interfaces/RegisterCredentials';
 import { passwordMatcher, PasswordVerifyErrorMatcher } from 'src/app/validators/passwordMatcher';
 import { securePassword } from 'src/app/validators/securePassword';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ import { securePassword } from 'src/app/validators/securePassword';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private userService: UserService) { }
   registerForm: FormGroup;
   verifyPasswordMatcher = new PasswordVerifyErrorMatcher();
 
@@ -33,7 +34,7 @@ export class RegisterComponent implements OnInit {
 
   registerUser(registerForm: RegisterCredentials) {
     if (this.registerForm.valid) {
-    //TODO: send form 
+      this.userService.post('register', registerForm).subscribe();
     }
   }
 
