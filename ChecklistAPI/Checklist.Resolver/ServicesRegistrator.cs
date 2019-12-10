@@ -1,4 +1,6 @@
 ﻿using Checklist.DataLogic;
+using Checklist.DataLogic.Repository.UnitOfWork;
+using Checklist.DataLogic.Repository.UserRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +14,8 @@ namespace Checklist.Resolver
     {
         public static void RegisterServices(IServiceCollection services)
         {
-
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         public static void AddDatabase(IServiceCollection services, IConfiguration configuration)

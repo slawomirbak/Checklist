@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserService extends AbstractRepositoryService<any> {
 
-  baseEndpoint = 'user';
+  baseEndpoint = 'api/user';
 
   constructor(http: HttpClient) {
     super(http);

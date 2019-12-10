@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Checklist.Abstract\Checklist.Abstract.csproj" />
     <ProjectReference Include="..\Checklist.Resolver\Checklist.Resolver.csproj" />
   </ItemGroup>
 
