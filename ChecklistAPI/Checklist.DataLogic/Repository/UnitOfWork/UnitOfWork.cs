@@ -15,8 +15,11 @@ namespace Checklist.DataLogic.Repository.UnitOfWork
         {
             _context = context;
         }
+
         private IUserRepository _userRepository;
-        //public BaseRepository<IdentityUser> UserRepository => _userRepository ?? (_userRepository = new BaseRepository<IdentityUser>(_context));
+        public IUserRepository userRepository => _userRepository ?? (_userRepository = new UserRepository.UserRepository(_context));
+
+     
         public async Task Save()
         {
              await _context.SaveChangesAsync();
