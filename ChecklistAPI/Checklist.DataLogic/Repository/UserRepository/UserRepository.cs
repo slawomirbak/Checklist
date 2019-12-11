@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Checklist.DataLogic.Entities;
 
 namespace Checklist.DataLogic.Repository.UserRepository
 {
-    public class UserRepository : BaseRepository<IdentityUser>, IUserRepository
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
         public UserRepository(DefaultContext context) : base(context)
         {

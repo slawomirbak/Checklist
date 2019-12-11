@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
   </PropertyGroup>
@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Checklist.Abstract\Checklist.Abstract.csproj" />
     <ProjectReference Include="..\Checklist.DataLogic\Checklist.DataLogic.csproj" />
+    <ProjectReference Include="..\Checklist.Services\Checklist.Services.csproj" />
   </ItemGroup>
 
 </Project>
