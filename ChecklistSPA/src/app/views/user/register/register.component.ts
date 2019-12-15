@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { RegisterCredentials } from 'src/app/interfaces/RegisterCredentials';
 import { passwordMatcher, PasswordVerifyErrorMatcher } from 'src/app/validators/passwordMatcher';
@@ -11,6 +11,8 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./register.component.sass']
 })
 export class RegisterComponent implements OnInit {
+  @Output() registerError: EventEmitter<string> = new EventEmitter<string>();
+  @Output() registerOk: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private fb: FormBuilder, private userService: UserService) { }
   registerForm: FormGroup;
@@ -35,7 +37,8 @@ export class RegisterComponent implements OnInit {
   registerUser(registerForm: RegisterCredentials) {
     if (this.registerForm.valid) {
       this.userService.post('register', registerForm).subscribe(
-        ok => console.log(ok)
+        ok => this.registerOk.emit(true),
+        error => this.registerError.emit(error)
       );
     }
   }

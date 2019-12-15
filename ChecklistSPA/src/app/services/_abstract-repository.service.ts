@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -39,16 +39,13 @@ export class AbstractRepositoryService<M> {
       .pipe(
         map((res: IBackendPlainResponse) => {
           if (!res.isSuccessful) {
-            throw new Error(res.errorMessage)
+            throw new Error(res.errorMessage);
           }
           if (res.data) {
             return res.data;
           }
         }),
-        catchError(err => {
-          this.errorHandler(err);
-          return of(false);
-        })
+        catchError(this.errorHandler)
       );
   }
 
@@ -61,16 +58,13 @@ export class AbstractRepositoryService<M> {
       .pipe(
         map((res: IBackendPlainResponse) => {
           if (!res.isSuccessful) {
-            throw new Error(res.errorMessage)
+            throw new Error(res.errorMessage);
           }
           if (res.data) {
             return res.data;
           }
         }),
-        catchError(err => {
-          this.errorHandler(err);
-          return of(false);
-        })
+        catchError(this.errorHandler)
       );
   }
 
@@ -79,23 +73,26 @@ export class AbstractRepositoryService<M> {
       .post<IBackendPlainResponse>(`${environment.apiBasePath}/${this.baseEndpoint}/${path}`, data)
       .pipe(
         map((res: IBackendPlainResponse) => {
-          console.log(res);
           if (!res.isSuccessful) {
-            throw new Error(res.errorMessage)
+            throw new Error(res.errorMessage);
           }
           if (res.data) {
             return res.data;
           }
         }),
-        catchError(err => {
-          this.errorHandler(err);
-          return of(false);
-        })
+        catchError(this.errorHandler)
       );
   }
 
-  private errorHandler(err: any) {
-    // TODO: Impalment this handler
-    console.log(err);
+  private errorHandler(error: any) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else if (typeof error.error === 'string' ) {
+      errorMessage = error.error;
+    } else {
+      errorMessage = error.statusText;
+    }
+    return throwError(errorMessage);
   }
 }
