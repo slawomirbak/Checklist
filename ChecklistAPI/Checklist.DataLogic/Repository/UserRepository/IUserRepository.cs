@@ -7,6 +7,7 @@ namespace Checklist.DataLogic.Repository.UserRepository
     {
         Task Create(User entity);
 
-        Task<bool> GetByEmail(string email);
+        Task<bool> IsEmailExist(string email);
+        Task<User> GetByEmial(string email);
     }
 }

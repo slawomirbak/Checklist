@@ -29,6 +29,7 @@ namespace ChecklistAPI
             ServicesRegistrator.AddDatabase(services, Configuration);
             ServicesRegistrator.RegisterServices(services);
             ServicesRegistrator.AddMapper(services);
+            ServicesRegistrator.AddJWTAuthentication(services, Configuration);
             services.AddControllers();
             services.AddCors();
         }
@@ -46,6 +47,8 @@ namespace ChecklistAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

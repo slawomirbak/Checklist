@@ -5,9 +5,11 @@ using Checklist.DataLogic.Repository.UnitOfWork;
 using Checklist.DataLogic.Repository.UserRepository;
 using Checklist.Services.Mapper;
 using Checklist.Services.Services.UserService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,6 +31,21 @@ namespace Checklist.Resolver
             {
                 options.UseSqlServer(configuration.GetConnectionString("DbDefault"));
             });
+        }
+
+        public static void AddJWTAuthentication(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration.GetSection("AppSettings:TokenKey").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
         }
 
         public static void AddMapper(IServiceCollection services)

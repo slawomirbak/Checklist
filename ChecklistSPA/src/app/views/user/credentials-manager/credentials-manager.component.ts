@@ -16,15 +16,15 @@ export class CredentialsManagerComponent implements OnInit {
   ngOnInit() {
   }
 
-  registerError(errorMessage: string) {
+  formError(errorMessage: string) {
     this.snackBar.openFromComponent(AllertMessageComponent, {
       data: { message: errorMessage, error: true},
       duration: 5 * 1000,
     });
   }
-  registerOk() {
+  formOk(infoMessage: string) {
     this.snackBar.openFromComponent(AllertMessageComponent, {
-      data: { message: 'Account was created successfully. Please log in.', error: false},
+      data: { message: infoMessage, error: false},
       duration: 5 * 1000,
     });
     this.selectedIndex = 0;

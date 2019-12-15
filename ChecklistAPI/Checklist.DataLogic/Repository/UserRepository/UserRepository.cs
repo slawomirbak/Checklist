@@ -10,10 +10,13 @@ namespace Checklist.DataLogic.Repository.UserRepository
         public UserRepository(DefaultContext context) : base(context)
         {
         }
-
-        public async Task<bool> GetByEmail(string email)
+        public async Task<bool> IsEmailExist(string email)
         {
             return  await _context.Users.AnyAsync(u => u.Email == email.Trim());
+        }
+        public async Task<User> GetByEmial(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
     }
 }

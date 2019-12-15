@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Checklist.Abstract.Contract;
 using Checklist.Abstract.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,8 +24,22 @@ namespace Checklist.WebApi.Controllers
         {
             if (ModelState.IsValid)
             {
-                var errorResponse =  await _userService.Add(userDto);
-                if(!errorResponse.IsSuccessful)
+                var errorResponse = await _userService.Add(userDto);
+                if (!errorResponse.IsSuccessful)
+                {
+                    return new BadRequestObjectResult(errorResponse.ErrorMessage);
+                }
+                return new OkObjectResult(errorResponse);
+            }
+            return BadRequest();
+        }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] CredentialDto credentials)
+        {
+            if (ModelState.IsValid)
+            {
+                var errorResponse = await _userService.Login(credentials);
+                if (!errorResponse.IsSuccessful)
                 {
                     return new BadRequestObjectResult(errorResponse.ErrorMessage);
                 }

@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RegisterComponent implements OnInit {
   @Output() registerError: EventEmitter<string> = new EventEmitter<string>();
-  @Output() registerOk: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() registerOk: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private fb: FormBuilder, private userService: UserService) { }
   registerForm: FormGroup;
@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
       this.isSaving = true;
       this.userService.post('register', registerForm).subscribe(
         ok => {
-          this.registerOk.emit(true);
+          this.registerOk.emit('Account was created successfully. Please log in.');
           this.isSaving = false;
         },
         error => {
