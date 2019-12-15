@@ -1,4 +1,5 @@
 ﻿using Checklist.Abstract.Contract;
+using Checklist.Abstract.Validation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Checklist.Abstract.IServices
 {
     public interface IUserService
     {
-        Task Add(UserDto userDto);
+        Task<BasePlainResponse> Add(UserDto userDto);
     }
 }

@@ -5,7 +5,8 @@ import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 export interface IBackendPlainResponse {
-  error: boolean;
+  isSuccessful: boolean;
+  errorMessage: string;
   data: any;
 }
 
@@ -36,7 +37,14 @@ export class AbstractRepositoryService<M> {
         `${environment.apiBasePath}/${this.baseEndpoint}/${id}`
       )
       .pipe(
-        map(res => res.data),
+        map((res: IBackendPlainResponse) => {
+          if (!res.isSuccessful) {
+            throw new Error(res.errorMessage)
+          }
+          if (res.data) {
+            return res.data;
+          }
+        }),
         catchError(err => {
           this.errorHandler(err);
           return of(false);
@@ -51,7 +59,14 @@ export class AbstractRepositoryService<M> {
           AbstractRepositoryService.serializeFilters(filters)
       )
       .pipe(
-        map(res => res.data),
+        map((res: IBackendPlainResponse) => {
+          if (!res.isSuccessful) {
+            throw new Error(res.errorMessage)
+          }
+          if (res.data) {
+            return res.data;
+          }
+        }),
         catchError(err => {
           this.errorHandler(err);
           return of(false);
@@ -63,7 +78,15 @@ export class AbstractRepositoryService<M> {
     return this.http
       .post<IBackendPlainResponse>(`${environment.apiBasePath}/${this.baseEndpoint}/${path}`, data)
       .pipe(
-        map(res => res.data),
+        map((res: IBackendPlainResponse) => {
+          console.log(res);
+          if (!res.isSuccessful) {
+            throw new Error(res.errorMessage)
+          }
+          if (res.data) {
+            return res.data;
+          }
+        }),
         catchError(err => {
           this.errorHandler(err);
           return of(false);
@@ -73,6 +96,6 @@ export class AbstractRepositoryService<M> {
 
   private errorHandler(err: any) {
     // TODO: Impalment this handler
-    throw new Error("Method not implemented.");
+    console.log(err);
   }
 }

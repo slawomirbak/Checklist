@@ -23,8 +23,12 @@ namespace Checklist.WebApi.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _userService.Add(userDto);
-                return Ok();
+                var errorResponse =  await _userService.Add(userDto);
+                if(!errorResponse.IsSuccessful)
+                {
+                    return new BadRequestObjectResult(errorResponse.ErrorMessage);
+                }
+                return new OkObjectResult(errorResponse);
             }
             return BadRequest();
         }

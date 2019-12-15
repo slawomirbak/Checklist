@@ -19,6 +19,11 @@ namespace Checklist.DataLogic
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Address)
                 .WithMany(a => a.Users);
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Email)
+                .IsRequired()
+                .HasMaxLength(60);
         }
     }
 }

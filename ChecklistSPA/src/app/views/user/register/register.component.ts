@@ -34,7 +34,9 @@ export class RegisterComponent implements OnInit {
 
   registerUser(registerForm: RegisterCredentials) {
     if (this.registerForm.valid) {
-      this.userService.post('register', registerForm).subscribe();
+      this.userService.post('register', registerForm).subscribe(
+        ok => console.log(ok)
+      );
     }
   }
 

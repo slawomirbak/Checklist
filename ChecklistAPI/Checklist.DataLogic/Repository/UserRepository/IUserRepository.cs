@@ -6,5 +6,7 @@ namespace Checklist.DataLogic.Repository.UserRepository
     public interface IUserRepository
     {
         Task Create(User entity);
+
+        Task<bool> GetByEmail(string email);
     }
 }

@@ -7,7 +7,7 @@ namespace Checklist.DataLogic.Repository
 {
     public class BaseRepository<T>: IBaseRepository<T> where T: class
     {
-        private DefaultContext _context;
+        protected DefaultContext _context;
 
         public BaseRepository(DefaultContext context)
         {
