@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   constructor(private fb: FormBuilder, private userService: UserService) { }
   registerForm: FormGroup;
   verifyPasswordMatcher = new PasswordVerifyErrorMatcher();
+  isSaving = false;
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -36,9 +37,16 @@ export class RegisterComponent implements OnInit {
 
   registerUser(registerForm: RegisterCredentials) {
     if (this.registerForm.valid) {
+      this.isSaving = true;
       this.userService.post('register', registerForm).subscribe(
-        ok => this.registerOk.emit(true),
-        error => this.registerError.emit(error)
+        ok => {
+          this.registerOk.emit(true);
+          this.isSaving = false;
+        },
+        error => {
+          this.registerError.emit(error);
+          this.isSaving = false;
+        }
       );
     }
   }

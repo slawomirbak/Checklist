@@ -43,5 +43,8 @@
         <mat-error *ngIf="hasError('verifyPassword','required')">Field is required</mat-error>
         <mat-error *ngIf="hasErrorCrossField('verifyPassword')">Password must be the same</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" class="full-width">Register</button>
+    <div class="align-center" *ngIf="isSaving">
+        <mat-spinner color="accent" diameter="40"></mat-spinner>
+    </div>
+    <button mat-raised-button color="primary" class="full-width" *ngIf="!isSaving">Register</button>
 </form>
