@@ -28,6 +28,7 @@ namespace ChecklistAPI
         {
             ServicesRegistrator.AddDatabase(services, Configuration);
             ServicesRegistrator.RegisterServices(services);
+            ServicesRegistrator.AddMapper(services);
             services.AddControllers();
             services.AddCors();
         }

@@ -1,7 +1,9 @@
-﻿using Checklist.Abstract.IServices;
+﻿using AutoMapper;
+using Checklist.Abstract.IServices;
 using Checklist.DataLogic;
 using Checklist.DataLogic.Repository.UnitOfWork;
 using Checklist.DataLogic.Repository.UserRepository;
+using Checklist.Services.Mapper;
 using Checklist.Services.Services.UserService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +29,17 @@ namespace Checklist.Resolver
             {
                 options.UseSqlServer(configuration.GetConnectionString("DbDefault"));
             });
+        }
+
+        public static void AddMapper(IServiceCollection services)
+        {
+            var config = new MapperConfiguration(c =>
+            {
+                c.AddProfile(new ApplicationProfile());
+            });
+
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
         }
     }
 }
