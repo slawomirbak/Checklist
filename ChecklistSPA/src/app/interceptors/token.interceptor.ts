@@ -4,10 +4,10 @@ import {
   HttpHandler,
   HttpEvent,
   HttpErrorResponse
-} from "@angular/common/http";
-import { Observable, throwError, BehaviorSubject } from "rxjs";
-import { AuthService } from "../services/auth.service";
-import { catchError, switchMap, filter, take } from "rxjs/operators";
+} from '@angular/common/http';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { catchError, switchMap, filter, take } from 'rxjs/operators';
+import { UserService } from '../services/user.service';
 
 export class TokenInterceptor implements HttpInterceptor {
   private isRefreshing = false;
@@ -15,20 +15,21 @@ export class TokenInterceptor implements HttpInterceptor {
     null
   );
 
-  constructor(public authService: AuthService) {}
+  constructor(public userService: UserService) {}
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (this.authService.getJwtToken()) {
-      req = this.addToken(req, this.authService.getJwtToken());
+    if (this.userService.getJwtToken()) {
+      req = this.addToken(req, this.userService.getJwtToken());
     }
     return next.handle(req).pipe(
       catchError(error => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
           return this.handle401Error(req, next);
         } else {
+          // rethinking this scenerio where to catch this errror
           return throwError(error);
         }
       })
@@ -48,7 +49,7 @@ export class TokenInterceptor implements HttpInterceptor {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
 
-      return this.authService.refreshToken().pipe(
+      return this.userService.refreshToken().pipe(
         switchMap((token: any) => {
           this.isRefreshing = false;
           this.refreshTokenSubject.next(token.jwt);

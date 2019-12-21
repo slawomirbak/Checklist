@@ -10,6 +10,7 @@ namespace Checklist.Abstract.IServices
     public interface IUserService
     {
         Task<BasePlainResponse> Add(UserDto userDto);
-        Task<BasePlainResponse> Login(CredentialDto credentials);
+        Task<LoginPlainResponse> Login(CredentialDto credentials);
+        Task<LoginPlainResponse> GetTokens(string token);
     }
 }

@@ -7,7 +7,9 @@ using Checklist.DataLogic.Repository.UnitOfWork;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,7 +44,7 @@ namespace Checklist.Services.Services.UserService
 
             return plainResponse;
         }
-        public async Task<BasePlainResponse> Login(CredentialDto credentials)
+        public async Task<LoginPlainResponse> Login(CredentialDto credentials)
         {
             var loginResponse = new LoginPlainResponse();
             loginResponse.IsSuccessful = false;
@@ -54,15 +56,43 @@ namespace Checklist.Services.Services.UserService
             }
             if(user.VerifyPassword(credentials.Password))
             {
+                var jwtToke = GenerateJwtToken(user);
                 loginResponse.IsSuccessful = true;
                 loginResponse.ErrorMessage = "";
-                loginResponse.Data = GenerateToken(user);
+                loginResponse.Data = new TokensDto
+                {
+                    Jwt = jwtToke,
+                    refreshToken =  await GenerateRefreshToken(user, jwtToke)
+                };
                 return loginResponse;
             }
             return loginResponse;
         }
 
-        private string GenerateToken(User user)
+        public async Task<LoginPlainResponse> GetTokens(string token)
+        {
+            var loginResponse = new LoginPlainResponse();
+            var refreshToken = await _unitOfWork.userRepository.GetRefreshToken(token);
+            if(refreshToken == null)
+            {
+                loginResponse.IsSuccessful = false;
+                loginResponse.ErrorMessage = "User was't found.";
+                return loginResponse;
+            }
+
+            refreshToken.JwtToken = GenerateJwtToken(refreshToken.User);
+
+            await _unitOfWork.userRepository.UpdateRefreshToken(refreshToken);
+            loginResponse.Data = new TokensDto
+            {
+                Jwt = refreshToken.JwtToken,
+                refreshToken = refreshToken.Token
+            };
+            
+            return loginResponse;
+        }
+
+        private string GenerateJwtToken(User user)
         {
             var claims = new[]{
                 new Claim(ClaimTypes.Email, user.Email),
@@ -74,13 +104,31 @@ namespace Checklist.Services.Services.UserService
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddHours(12),
+                Expires = DateTime.UtcNow.AddMinutes(1),
                 SigningCredentials = creds
             };
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
             
+        }
+
+        private async Task<string> GenerateRefreshToken(User user, string jwtToken)
+        {
+            var refreshToken = new RefreshToken()
+            {
+                CreationDate = DateTime.UtcNow,
+                ExpiryDate = DateTime.UtcNow.AddSeconds(30),
+                User = user,
+                JwtToken = jwtToken,
+                Token = GenerateJwtToken(user)
+
+            };
+
+            await _unitOfWork.userRepository.SaveRereshToken(refreshToken);
+            await _unitOfWork.Save();
+
+            return refreshToken.Token;
         }
     }
 }

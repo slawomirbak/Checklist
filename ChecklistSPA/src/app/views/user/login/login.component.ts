@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { LoginCredentials } from 'src/app/interfaces/LoginCredentials';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   @Output() loginError: EventEmitter<string> = new EventEmitter<string>();
   @Output() loginOk: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private fb: FormBuilder, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
   loginForm: FormGroup;
   isSaving = false;
 
@@ -26,14 +27,11 @@ export class LoginComponent implements OnInit {
   loginUser(loginForm: LoginCredentials) {
     if (this.loginForm.valid) {
       this.isSaving = true;
-      this.userService.post('login', loginForm).subscribe(
+      this.userService.login(loginForm).subscribe(
         ok => {
-          //TODO:
-          // save token
-          // display message
-          // redirect
           this.loginOk.emit('User logged in sucessfully.');
           this.isSaving = false;
+          this.router.navigate(['/dashboard']);
         },
         error => {
           this.loginError.emit(error);

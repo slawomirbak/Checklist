@@ -14,4 +14,13 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  checkInterceptor(){
+    console.log('start checking');
+
+    this.http.get(`https://localhost:44370/api/user/private`).subscribe(
+      ok => console.log(ok),
+      error => console.log(error)
+    );
+  }
+
 }

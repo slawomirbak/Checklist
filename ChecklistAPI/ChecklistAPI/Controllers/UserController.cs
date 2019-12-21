@@ -38,12 +38,35 @@ namespace Checklist.WebApi.Controllers
         {
             if (ModelState.IsValid)
             {
-                var errorResponse = await _userService.Login(credentials);
-                if (!errorResponse.IsSuccessful)
+                var response = await _userService.Login(credentials);
+                if (!response.IsSuccessful)
                 {
-                    return new BadRequestObjectResult(errorResponse.ErrorMessage);
+                    return new BadRequestObjectResult(response.ErrorMessage);
                 }
-                return new OkObjectResult(errorResponse);
+                return new OkObjectResult(response);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet("private")]
+        [Authorize]
+        public IActionResult Private()
+        {
+            return new OkObjectResult("ok");
+        }
+
+        [HttpPost("refresh")]
+        public async Task<ActionResult> Refresh([FromBody] TokensDto tokens)
+        {
+            if (!string.IsNullOrEmpty(tokens.refreshToken))
+            {
+                var response = await _userService.GetTokens(tokens.refreshToken);
+                if (!response.IsSuccessful)
+                {
+                    return new BadRequestObjectResult(response.ErrorMessage);
+                }
+                return new OkObjectResult(response);
+
             }
             return BadRequest();
         }

@@ -13,6 +13,7 @@ namespace Checklist.DataLogic
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +25,9 @@ namespace Checklist.DataLogic
                 .Property(u => u.Email)
                 .IsRequired()
                 .HasMaxLength(60);
+
+            modelBuilder.Entity<RefreshToken>()
+                .HasOne(rt => rt.User);
         }
     }
 }

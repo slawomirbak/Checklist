@@ -18,5 +18,21 @@ namespace Checklist.DataLogic.Repository.UserRepository
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
+
+        public async Task SaveRereshToken(RefreshToken refreshToke)
+        {
+            await _context.RefreshTokens.AddAsync(refreshToke);
+        }
+
+        public async Task<RefreshToken> GetRefreshToken(string token)
+        {
+            return await _context.RefreshTokens.Include(rt=>rt.User).FirstOrDefaultAsync(rt => rt.Token == token);
+        }
+
+        public async Task UpdateRefreshToken(RefreshToken token)
+        {
+            var refreshToken = await GetRefreshToken(token.Token);
+            if (refreshToken != null) _context.RefreshTokens.Update(refreshToken);
+        }
     }
 }
