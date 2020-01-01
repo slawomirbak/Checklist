@@ -12,7 +12,7 @@
         <mat-icon>dashboard</mat-icon>
         Dashboard
       </a>
-      <a mat-list-item (click)="logout($event)" href="#">Logout</a>
+      <a mat-list-item (click)="logout()" [routerLink]="['/home']">Logout</a>
     </mat-nav-list>
     <mat-nav-list *ngIf="!(isLoggedIn$ | async)">
       <a mat-list-item [routerLink]="['/user', 'login']">Log in</a>
@@ -36,7 +36,7 @@
         [ngClass]="{hidden: (isHandset$| async)}"
       >
         <a mat-list-item [routerLink]="['/dashboard']">Dashboard</a>
-        <a mat-list-item (click)="logout($event)" href="#">Logout</a>
+        <a mat-list-item (click)="logout()" [routerLink]="['/home']">Logout</a>
       </div>
       <div *ngIf="!(isLoggedIn$ | async)"
         class="top-menu-items"

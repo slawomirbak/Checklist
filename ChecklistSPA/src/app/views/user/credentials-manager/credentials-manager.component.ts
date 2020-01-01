@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { AllertMessageComponent } from './../../../shared/UI/allert-message/allert-message.component';
+import { SnackBarInfo } from 'src/app/services/snackbar-info.service';
 
 
 @Component({
@@ -11,22 +12,15 @@ import { AllertMessageComponent } from './../../../shared/UI/allert-message/alle
 export class CredentialsManagerComponent implements OnInit {
 
   selectedIndex: number;
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private snackBarInfo: SnackBarInfo) {}
 
   ngOnInit() {
   }
 
   formError(errorMessage: string) {
-    this.snackBar.openFromComponent(AllertMessageComponent, {
-      data: { message: errorMessage, error: true},
-      duration: 5 * 1000,
-    });
+    this.snackBarInfo.formError(errorMessage);
   }
   formOk(infoMessage: string) {
-    this.snackBar.openFromComponent(AllertMessageComponent, {
-      data: { message: infoMessage, error: false},
-      duration: 5 * 1000,
-    });
-    this.selectedIndex = 0;
+    this.snackBarInfo.formOk(infoMessage);
   }
 }
