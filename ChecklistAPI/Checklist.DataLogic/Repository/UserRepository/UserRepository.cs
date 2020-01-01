@@ -34,5 +34,11 @@ namespace Checklist.DataLogic.Repository.UserRepository
             var refreshToken = await GetRefreshToken(token.Token);
             if (refreshToken != null) _context.RefreshTokens.Update(refreshToken);
         }
+
+        public async Task RemoveRefreshToken(string token)
+        {
+            var refreshToken = await GetRefreshToken(token);
+            if (refreshToken != null) _context.RefreshTokens.Remove(refreshToken);
+        }
     }
 }

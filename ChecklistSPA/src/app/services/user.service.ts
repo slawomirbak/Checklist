@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AbstractRepositoryService } from './_abstract-repository.service';
 import { HttpClient } from '@angular/common/http';
-import { of, Observable } from 'rxjs';
+import { of, Observable, BehaviorSubject } from 'rxjs';
 import { LoginCredentials } from '../interfaces/LoginCredentials';
-import { tap, mapTo, catchError } from 'rxjs/operators';
+import { tap, mapTo, map } from 'rxjs/operators';
 import { ITokens } from '../models/ITokens';
 
 @Injectable({
@@ -18,7 +18,11 @@ export class UserService extends AbstractRepositoryService<any> {
 
   private readonly JWT_TOKEN = 'JWT_TOKEN';
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
-  private loggedUser: string;
+  private loggedUser$ = new BehaviorSubject(this.getRefreshToken());
+
+  isLoggedIn$ = this.loggedUser$.pipe(
+    map(userName => !!userName)
+  );
 
   login(credentials: LoginCredentials): Observable<boolean> {
     return this.post('login', credentials).pipe(
@@ -43,17 +47,18 @@ export class UserService extends AbstractRepositoryService<any> {
   getJwtToken() {
     return localStorage.getItem(this.JWT_TOKEN);
   }
+
   isLoggedIn(): boolean {
-    return !!this.getJwtToken();
+    return !!this.loggedUser$.value;
   }
 
   private doLoginUser(username: string, tokens: ITokens) {
-    this.loggedUser = username;
+    this.loggedUser$.next(username);
     this.storeTokens(tokens);
   }
 
   private doLogoutUser() {
-    this.loggedUser = null;
+    this.loggedUser$.next(null);
     this.removeTokens();
   }
 

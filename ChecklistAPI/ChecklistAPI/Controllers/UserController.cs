@@ -70,5 +70,21 @@ namespace Checklist.WebApi.Controllers
             }
             return BadRequest();
         }
+
+        [HttpPost("logout")]
+        public async Task<ActionResult> Logout([FromBody] TokensDto tokens)
+        {
+            if (!string.IsNullOrEmpty(tokens.refreshToken))
+            {
+                var response = await _userService.Logout(tokens.refreshToken);
+                if (!response.IsSuccessful)
+                {
+                    return new BadRequestObjectResult(response.ErrorMessage);
+                }
+                return new OkObjectResult(response);
+
+            }
+            return BadRequest();
+        }
     }
 }

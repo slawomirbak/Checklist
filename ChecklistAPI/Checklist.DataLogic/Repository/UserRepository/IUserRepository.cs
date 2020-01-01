@@ -11,5 +11,6 @@ namespace Checklist.DataLogic.Repository.UserRepository
         Task SaveRereshToken(RefreshToken refreshToke);
         Task<RefreshToken> GetRefreshToken(string token);
         Task UpdateRefreshToken(RefreshToken token);
+        Task RemoveRefreshToken(string token);
     }
 }

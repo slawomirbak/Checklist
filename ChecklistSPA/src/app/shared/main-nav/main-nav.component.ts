@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -15,8 +16,13 @@ export class MainNavComponent {
       map(result => result.matches),
       shareReplay()
     );
-  isLoggedIn = false;
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  isLoggedIn$ = this.userService.isLoggedIn$;
 
+  constructor(private breakpointObserver: BreakpointObserver, private userService: UserService) {}
+
+  logout(event) {
+    event.preventDefault();
+    this.userService.logout().subscribe();
+  }
 }

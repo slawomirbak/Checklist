@@ -69,6 +69,13 @@ namespace Checklist.Services.Services.UserService
             return loginResponse;
         }
 
+        public async Task<LoginPlainResponse> Logout(string token)
+        {
+            var loginResponse = new LoginPlainResponse();
+            await _unitOfWork.userRepository.RemoveRefreshToken(token);
+            return loginResponse;
+        }
+
         public async Task<LoginPlainResponse> GetTokens(string token)
         {
             var loginResponse = new LoginPlainResponse();

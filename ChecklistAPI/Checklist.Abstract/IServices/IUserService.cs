@@ -12,5 +12,6 @@ namespace Checklist.Abstract.IServices
         Task<BasePlainResponse> Add(UserDto userDto);
         Task<LoginPlainResponse> Login(CredentialDto credentials);
         Task<LoginPlainResponse> GetTokens(string token);
+        Task<LoginPlainResponse> Logout(string token);
     }
 }
