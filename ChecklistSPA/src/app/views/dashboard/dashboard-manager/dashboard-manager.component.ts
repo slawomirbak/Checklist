@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardManagerComponent implements OnInit {
 
+  createsList = false;
+
   constructor() { }
 
   ngOnInit() {
   }
-
+  createNewList(){
+    this.createsList = true;
+  }
+  showList(){
+    this.createsList = false;
+  }
 }
