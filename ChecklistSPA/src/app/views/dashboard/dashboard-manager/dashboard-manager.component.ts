@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SnackBarInfo } from 'src/app/services/snackbar-info.service';
 
 @Component({
   selector: 'app-dashboard-manager',
@@ -9,14 +10,23 @@ export class DashboardManagerComponent implements OnInit {
 
   createsList = false;
 
-  constructor() { }
+  constructor(private snackbarInfo: SnackBarInfo) { }
 
   ngOnInit() {
   }
-  createNewList(){
+  createNewList() {
     this.createsList = true;
   }
-  showList(){
+  showList() {
     this.createsList = false;
+  }
+
+  checklistError(message) {
+    console.log(message)
+    this.snackbarInfo.formError(message);
+  }
+
+  checklistOk(message) {
+    this.snackbarInfo.formOk(message);
   }
 }

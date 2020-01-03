@@ -4,6 +4,7 @@ using Checklist.DataLogic;
 using Checklist.DataLogic.Repository.UnitOfWork;
 using Checklist.DataLogic.Repository.UserRepository;
 using Checklist.Services.Mapper;
+using Checklist.Services.Services.DashboardService;
 using Checklist.Services.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace Checklist.Resolver
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IDashboardService, DashboardService>();
         }
 
         public static void AddDatabase(IServiceCollection services, IConfiguration configuration)

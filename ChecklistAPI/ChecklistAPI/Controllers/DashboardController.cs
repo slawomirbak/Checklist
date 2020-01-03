@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Checklist.Abstract.Contract;
 using Checklist.Abstract.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -19,6 +20,13 @@ namespace Checklist.WebApi.Controllers
         public DashboardController(IDashboardService dashboardService)
         {
             _dashboardService = dashboardService;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddList([FromBody]ChecklistDto checklist)
+        {
+            var response = await _dashboardService.Add(checklist);
+            return new BadRequestResult();
         }
     }
 }

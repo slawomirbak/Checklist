@@ -5,7 +5,7 @@
             <!-- <div class="test" fxFlex="20">fdafda</div> -->
         </mat-card-content>
         <mat-card-content *ngIf="createsList">
-            <app-checklist-form (showList)="showList()"></app-checklist-form>
+            <app-checklist-form (showList)="showList()" (checklistError)="checklistError($event)" (checklistOk)="checklistOk($event)"></app-checklist-form>
         </mat-card-content>
         <mat-card-footer *ngIf="!createsList">
             <button mat-fab color="primary" class="add_button" matTooltip="Create new list" (click)="createNewList()">+</button>

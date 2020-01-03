@@ -14,6 +14,9 @@ namespace Checklist.DataLogic
         public DbSet<User> Users { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<UserChecklist> UserChecklists { get; set; }
+        public DbSet<ChecklistField> ChecklistFields { get; set; }
+        public DbSet<ChecklistImage> ChecklistImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +31,12 @@ namespace Checklist.DataLogic
 
             modelBuilder.Entity<RefreshToken>()
                 .HasOne(rt => rt.User);
+
+            modelBuilder.Entity<UserChecklist>()
+                .HasOne(uc => uc.User);
+
+            modelBuilder.Entity<ChecklistField>()
+                .HasMany(cf => cf.ChecklistImages);
         }
     }
 }

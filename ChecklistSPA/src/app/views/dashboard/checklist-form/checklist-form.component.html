@@ -1,11 +1,11 @@
 <h2 class="mat-h2">Create new checlist</h2>
-<form class="login-form" [formGroup]="checklistForm">
+<form [formGroup]="checklistForm" (ngSubmit)="createChecklist(checklistForm.value)">
     <mat-form-field class="full-width">
         <input matInput placeholder="List name" formControlName="checklistName"/>
         <mat-hint>Please write your list name</mat-hint>
         <mat-error *ngIf="hasError('checklistName','required')">Field is required</mat-error>
     </mat-form-field>
-    <div formArrayName="listField" *ngFor="let field of listField.controls; let i=index">
+    <div formArrayName="listFields" *ngFor="let field of listFields.controls; let i=index">
         <mat-form-field class="full-width">
             <input matInput placeholder="List position" [formControlName]="i"/>
             <mat-hint>Please write list position </mat-hint>
@@ -14,8 +14,8 @@
     <div class="align-center" *ngIf="isSaving">
         <mat-spinner color="accent" diameter="40"></mat-spinner>
     </div>
-    <button mat-raised-button color="primary" class="full-width" (click)="addFormControl()">Add position</button>
-    <button mat-raised-button color="accent" class="half-width" *ngIf="!isSaving">Save</button>
-    <button mat-raised-button color="warn" class="half-width" (click)="dropChanges()">Drop changes and back to your dasboard</button>
+    <button mat-raised-button color="primary" type="button" class="full-width" (click)="addFormControl()" *ngIf="!isSaving">Add position</button>
+    <button mat-raised-button color="accent" type="submit" class="half-width" *ngIf="!isSaving">Save</button>
+    <button mat-raised-button color="warn" class="half-width" (click)="dropChanges()" *ngIf="!isSaving">Drop changes and back to your dasboard</button>
 </form>
 
