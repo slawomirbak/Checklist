@@ -6,7 +6,7 @@ namespace Checklist.Abstract.Contract
 {
     public class ChecklistDto
     {
-        public string ChecklistName { get; set; }
+        public string Name { get; set; }
         public List<string> ListFields { get; set; }
     }
 }

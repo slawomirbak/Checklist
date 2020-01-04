@@ -2,6 +2,7 @@
 using Checklist.Abstract.Contract;
 using Checklist.Abstract.IServices;
 using Checklist.Abstract.Validation;
+using Checklist.DataLogic.Entities;
 using Checklist.DataLogic.Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,17 @@ namespace Checklist.Services.Services.DashboardService
         {
         }
 
-        public async Task<BasePlainResponse> Add(ChecklistDto checklist)
+        public async Task<BasePlainResponse> Add(ChecklistDto checklistDto, string userEmail)
         {
-            var test = new BasePlainResponse();
-            return test;
+            var plainResponse = new BasePlainResponse();
+            var checklist = _mapper.Map<UserChecklist>(checklistDto);
+            var user = await _unitOfWork.userRepository.GetByEmial(userEmail);
+            checklist.User = user;
+            checklist.CreatedDate = DateTime.UtcNow;
+            await _unitOfWork.dashboardRepository.Create(checklist);
+            await _unitOfWork.Save();
+
+            return plainResponse;
         }
     }
 }

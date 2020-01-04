@@ -1,8 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { DashboardService } from 'src/app/services/checklist.service';
-import { ChecklistForm } from 'src/app/interfaces/Checklist';
+import { IUserChecklist } from 'src/app/interfaces/IUserChecklist';
 import { Router } from '@angular/router';
+import { UserChecklist } from 'src/app/models/UserChecklist';
 
 @Component({
   selector: 'app-checklist-form',
@@ -26,7 +27,7 @@ export class ChecklistFormComponent implements OnInit {
 
   ngOnInit() {
     this.checklistForm = this.fb.group({
-      checklistName: ['', Validators.required],
+      name: ['', Validators.required],
       listFields: this.fb.array([])
     });
   }
@@ -44,12 +45,13 @@ export class ChecklistFormComponent implements OnInit {
     return this.checklistForm.controls[controlName].hasError(errorName);
   }
 
-  createChecklist(checklistForm: ChecklistForm) {
-    if(!this.checklistForm.valid){
+  createChecklist(checklistForm: IUserChecklist) {
+    if(!this.checklistForm.valid) {
       return;
     }
     this.isSaving = true;
-    this.dashboardService.post('', checklistForm).subscribe(
+    const userChecklist = this.createUserChecklist(checklistForm);
+    this.dashboardService.post('', userChecklist).subscribe(
       ok => {
         this.checklistOk.emit('Checklist was created suceffully.');
         this.isSaving = false;
@@ -60,5 +62,10 @@ export class ChecklistFormComponent implements OnInit {
         this.isSaving = false;
       }
     );
+  }
+
+  private createUserChecklist(checklistForm: IUserChecklist): UserChecklist {
+    const userChecklist = new UserChecklist();
+    return userChecklist;
   }
 }

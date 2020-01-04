@@ -7,6 +7,7 @@ using Checklist.Services.Mapper;
 using Checklist.Services.Services.DashboardService;
 using Checklist.Services.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,9 +23,12 @@ namespace Checklist.Resolver
         public static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IDashboardService, DashboardService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDashboardService, DashboardService>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         public static void AddDatabase(IServiceCollection services, IConfiguration configuration)

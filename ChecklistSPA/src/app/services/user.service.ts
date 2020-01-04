@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { of, Observable, BehaviorSubject } from 'rxjs';
 import { LoginCredentials } from '../interfaces/LoginCredentials';
 import { tap, mapTo, map } from 'rxjs/operators';
-import { ITokens } from '../models/ITokens';
+import { ITokens } from '../interfaces/ITokens';
 
 @Injectable({
   providedIn: 'root'

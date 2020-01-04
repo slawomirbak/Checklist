@@ -20,6 +20,21 @@ namespace Checklist.Services.Mapper
             CreateMap<AddressDto, Address>();
 
             CreateMap<Address, AddressDto>();
+
+            CreateMap<ChecklistDto, UserChecklist>()
+                .ForMember(c => c.Name, opt => opt.MapFrom(x => x.Name))
+                .ForMember(c => c.Fields, opt => opt.MapFrom(x => ChecklistFieldCreator(x.ListFields)));
+        }
+
+        private List<ChecklistField> ChecklistFieldCreator(List<string> checklistNames)
+        {
+            var checklistFields = new List<ChecklistField>();
+            foreach (var item in checklistNames)
+            {
+                checklistFields.Add(new ChecklistField(item));
+            }
+
+            return checklistFields;
         }
     }
 }

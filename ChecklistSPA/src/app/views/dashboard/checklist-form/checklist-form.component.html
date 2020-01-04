@@ -1,9 +1,9 @@
 <h2 class="mat-h2">Create new checlist</h2>
 <form [formGroup]="checklistForm" (ngSubmit)="createChecklist(checklistForm.value)">
     <mat-form-field class="full-width">
-        <input matInput placeholder="List name" formControlName="checklistName"/>
+        <input matInput placeholder="List name" formControlName="name"/>
         <mat-hint>Please write your list name</mat-hint>
-        <mat-error *ngIf="hasError('checklistName','required')">Field is required</mat-error>
+        <mat-error *ngIf="hasError('name','required')">Field is required</mat-error>
     </mat-form-field>
     <div formArrayName="listFields" *ngFor="let field of listFields.controls; let i=index">
         <mat-form-field class="full-width">

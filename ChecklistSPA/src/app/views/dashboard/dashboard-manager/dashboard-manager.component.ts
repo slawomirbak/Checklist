@@ -22,7 +22,6 @@ export class DashboardManagerComponent implements OnInit {
   }
 
   checklistError(message) {
-    console.log(message)
     this.snackbarInfo.formError(message);
   }
 
