@@ -9,5 +9,7 @@ namespace Checklist.DataLogic.Repository.DashboardRepository
     public interface IDashboardRepository
     {
         Task Create(UserChecklist entity);
+
+        Task <List<UserChecklist>> GetLists(int userId);
     }
 }

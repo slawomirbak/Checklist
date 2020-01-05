@@ -1,7 +1,7 @@
-import { IChecklistField } from './IChecklistField';
+import {ChecklistField } from './IChecklistField';
 
 export interface IUserChecklist {
     name: string;
-    fields: IChecklistField[] ;
+    fields: ChecklistField[] ;
     createdDate: string;
 }

@@ -4,9 +4,10 @@ using System.Text;
 
 namespace Checklist.Abstract.Contract
 {
-    public class ChecklistDto
+    public class ChecklistImageDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public List<string> ListFields { get; set; }
+        public string Path { get; set; }
     }
 }

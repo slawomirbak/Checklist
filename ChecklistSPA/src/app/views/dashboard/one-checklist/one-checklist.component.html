@@ -1,0 +1,12 @@
+<div class="main-wrapper">
+    <mat-card class="card-wrapper" *ngIf="!(userChecklist$ |async)">
+        <mat-card-title>
+            The list provided does not exist or you do not have permission to it
+        </mat-card-title>
+    </mat-card>
+    <mat-card class="card-wrapper" *ngIf="(userChecklist$ | async) as userChecklist">
+        <mat-card-title>
+            {{userChecklist.name}}
+        </mat-card-title>
+    </mat-card>
+</div>

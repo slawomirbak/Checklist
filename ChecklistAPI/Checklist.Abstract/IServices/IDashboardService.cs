@@ -9,6 +9,7 @@ namespace Checklist.Abstract.IServices
 {
     public interface IDashboardService
     {
-        Task<BasePlainResponse> Add(ChecklistDto checklist, string userEmail);
+        Task<BasePlainResponse> Add(UserChecklistDto checklist, string userEmail);
+        Task<ChecklistPlainResponse> GetLists(string userEmail);
     }
 }

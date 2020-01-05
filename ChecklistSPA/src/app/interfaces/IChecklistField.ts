@@ -1,7 +1,6 @@
 import { IChecklistImage } from './IChecklistImage';
-
-export interface IChecklistField {
-    name: string;
+export class ChecklistField {
+    name: any;
     completed: boolean;
-    ChecklistImages: IChecklistImage[];
+    checklistImages: IChecklistImage[] = [];
 }

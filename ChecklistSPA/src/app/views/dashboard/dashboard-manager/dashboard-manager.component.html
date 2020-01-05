@@ -2,7 +2,12 @@
     <mat-card class="card-wrapper">
         <mat-card-title *ngIf="!createsList">Your lists</mat-card-title>
         <mat-card-content *ngIf="!createsList" fxLayout="row wrap" fxLayoutAlign="space-around center">
-            <!-- <div class="test" fxFlex="20">fdafda</div> -->
+            <mat-card *ngFor="let checklis of (userChecklist$ | async)" fxFlex="20">
+                <mat-card-header>{{checklis.name}}</mat-card-header>
+                <mat-card-actions>
+                    <a mat-raised-button color="accent" [routerLink]="['/dashboard', checklis.id]">Check it now!</a> 
+                </mat-card-actions>
+            </mat-card>
         </mat-card-content>
         <mat-card-content *ngIf="createsList">
             <app-checklist-form (showList)="showList()" (checklistError)="checklistError($event)" (checklistOk)="checklistOk($event)"></app-checklist-form>

@@ -4,11 +4,12 @@ import { DashboardManagerComponent } from './dashboard-manager/dashboard-manager
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardRoutes } from './dashboard.routing';
 import { ChecklistFormComponent } from './checklist-form/checklist-form.component';
+import { OneChecklistComponent } from './one-checklist/one-checklist.component';
 
 
 
 @NgModule({
-  declarations: [DashboardManagerComponent, ChecklistFormComponent],
+  declarations: [DashboardManagerComponent, ChecklistFormComponent, OneChecklistComponent],
   imports: [
     CommonModule,
     DashboardRoutes,
