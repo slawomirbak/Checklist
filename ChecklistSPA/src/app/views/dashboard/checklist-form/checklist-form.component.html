@@ -14,8 +14,8 @@
     <div class="align-center" *ngIf="isSaving">
         <mat-spinner color="accent" diameter="40"></mat-spinner>
     </div>
-    <button mat-raised-button color="primary" type="button" class="full-width" (click)="addFormControl()" *ngIf="!isSaving">Add position</button>
-    <button mat-raised-button color="accent" type="submit" class="half-width" *ngIf="!isSaving">Save</button>
-    <button mat-raised-button color="warn" class="half-width" (click)="dropChanges()" *ngIf="!isSaving">Drop changes and back to your dasboard</button>
+    <button mat-raised-button color="primary" type="button"  (click)="addFormControl()" *ngIf="!isSaving">Add position</button>
+    <button mat-raised-button type="submit"  *ngIf="!isSaving">Save</button>
+    <button mat-raised-button color="warn" (click)="dropChanges()" *ngIf="!isSaving">Drop changes and back to your dasboard</button>
 </form>
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,18 +10,13 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
-  checkInterceptor(){
-    console.log('start checking');
-
-    this.http.get(`https://localhost:44370/api/user/private`).subscribe(
-      ok => console.log(ok),
-      error => console.log(error)
-    );
+  goToDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 
 }

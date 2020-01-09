@@ -29,7 +29,9 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Checklist</span>
+      <a [routerLink]="['/home']">
+        Checklist
+      </a>
       <span class="spacer"></span>
       <div *ngIf="isLoggedIn$ | async"
         class="top-menu-items"
