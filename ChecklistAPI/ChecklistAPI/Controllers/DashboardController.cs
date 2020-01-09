@@ -54,5 +54,45 @@ namespace Checklist.WebApi.Controllers
             }
             return new OkObjectResult(response);
         }
+
+        [HttpPost("upload/{checklistId}")]
+        public async Task<ActionResult> UploadImages(int checklistId)
+        {
+            var userEmail = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email).Value;
+            var file = Request.Form.Files[0];
+            if (!file.ContentType.Contains("image"))
+            {
+                return new BadRequestResult();
+            }
+            var response = await _dashboardService.UploadImage(file, checklistId, userEmail);
+            if (!response.IsSuccessful)
+            {
+                return new BadRequestObjectResult(response.ErrorMessage);
+            }
+            return new OkObjectResult(response);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Update([FromBody] UserChecklistDto userChecklistDto)
+        {
+            var userEmail = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email).Value;
+            var response = await _dashboardService.Update(userChecklistDto, userEmail);
+            if (!response.IsSuccessful)
+            {
+                return new BadRequestObjectResult(response.ErrorMessage);
+            }
+            return new OkObjectResult(response);
+        }
+        [HttpDelete("{checklistId}")]
+        public async Task<ActionResult> Delete(int checklistId)
+        {
+            var userEmail = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email).Value;
+            var response = await _dashboardService.Delete(checklistId , userEmail);
+            if (!response.IsSuccessful)
+            {
+                return new BadRequestObjectResult(response.ErrorMessage);
+            }
+            return new OkObjectResult(response);
+        }
     }
 }

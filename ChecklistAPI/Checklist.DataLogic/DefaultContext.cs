@@ -35,8 +35,8 @@ namespace Checklist.DataLogic
             modelBuilder.Entity<UserChecklist>()
                 .HasOne(uc => uc.User);
 
-            modelBuilder.Entity<ChecklistField>()
-                .HasMany(cf => cf.ChecklistImages);
+            modelBuilder.Entity<UserChecklist>()
+                .HasMany(uc => uc.ChecklistImages);
         }
     }
 }

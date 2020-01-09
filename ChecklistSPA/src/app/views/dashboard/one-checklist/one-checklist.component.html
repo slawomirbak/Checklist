@@ -1,12 +1,44 @@
 <div class="main-wrapper">
-    <mat-card class="card-wrapper" *ngIf="!(userChecklist$ |async)">
-        <mat-card-title>
-            The list provided does not exist or you do not have permission to it
-        </mat-card-title>
-    </mat-card>
-    <mat-card class="card-wrapper" *ngIf="(userChecklist$ | async) as userChecklist">
-        <mat-card-title>
-            {{userChecklist.name}}
-        </mat-card-title>
-    </mat-card>
+  <mat-card class="card-wrapper" *ngIf="!(userChecklist$ | async)">
+    <mat-card-title>
+      The list provided does not exist or you do not have permission to it
+    </mat-card-title>
+  </mat-card>
+  <mat-card
+    class="card-wrapper"
+    *ngIf="userChecklist$ | async as userChecklist"
+  >
+    <mat-card-title>
+      {{ userChecklist.name }}
+    </mat-card-title>
+    <mat-card-content>
+        <div
+            class="full-width"
+            *ngFor="let field of fields.value"
+        >
+            <mat-checkbox [(ngModel)]="field.completed">{{ field.name }}</mat-checkbox>
+        </div>
+    </mat-card-content>
+    <mat-card-footer>
+      <div class="align-center" *ngIf="isSaving">
+        <mat-spinner color="accent" diameter="40"></mat-spinner>
+      </div>
+      <button
+        mat-raised-button
+        color="primary"
+        class="full-width"
+        *ngIf="!isSaving"
+        (click)="saveChecklist()"
+      >
+        Save list
+      </button>
+      <button mat-raised-button (click)="openUploadDialog()">Upload images</button>
+      <button mat-raised-button (click)="goToDashboard()">Back to my lists</button>
+    </mat-card-footer>
+    <div fxLayout="row wrap" fxLayoutAlign="space-around center">
+        <mat-card-content class="images" *ngFor="let image of currentChecklist.checklistImages" fxFlex="20">
+            <img mat-card-image src="{{image.path}}" alt="Photo of a Shiba Inu" >
+        </mat-card-content>
+    </div>
+  </mat-card>
 </div>

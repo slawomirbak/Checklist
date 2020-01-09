@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractRepositoryService } from './_abstract-repository.service';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -18,8 +18,7 @@ export class DashboardService extends AbstractRepositoryService<any> {
 
   currentUserChecklist$ = this.getList().pipe(
     tap(data => {
-      console.log(data)
-      this.userChecklist$.next(data)
+      this.userChecklist$.next(data);
     })
   );
 }

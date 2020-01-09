@@ -12,7 +12,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
-    AllertMessageComponent
+    AllertMessageComponent,
   ],
   imports: [
     BrowserModule,

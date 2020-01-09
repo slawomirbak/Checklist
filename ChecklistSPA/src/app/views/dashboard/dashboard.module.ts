@@ -5,6 +5,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardRoutes } from './dashboard.routing';
 import { ChecklistFormComponent } from './checklist-form/checklist-form.component';
 import { OneChecklistComponent } from './one-checklist/one-checklist.component';
+import { UploadDialogComponent } from 'src/app/shared/UI/upload-dialog/upload-dialog.component';
 
 
 
@@ -14,6 +15,7 @@ import { OneChecklistComponent } from './one-checklist/one-checklist.component';
     CommonModule,
     DashboardRoutes,
     SharedModule
-  ]
+  ],
+  entryComponents: [UploadDialogComponent]
 })
 export class DashboardModule { }

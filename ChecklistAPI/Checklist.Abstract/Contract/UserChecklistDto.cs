@@ -10,5 +10,6 @@ namespace Checklist.Abstract.Contract
         public string Name { get; set; }
         public List<ChecklistFieldDto> Fields { get; set; }
         public DateTime CreatedDate { get; set; }
+        public List<ChecklistImageDto> ChecklistImages { get; set; }
     }
 }

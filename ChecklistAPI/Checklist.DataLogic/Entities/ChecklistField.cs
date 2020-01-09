@@ -8,7 +8,6 @@ namespace Checklist.DataLogic.Entities
     {
         public string Name { get; set; }
         public bool Completed { get; set; }
-        public List<ChecklistImage> ChecklistImages { get; set; }    
         public UserChecklist UserChecklist { get; set; }
     }
 }

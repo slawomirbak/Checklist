@@ -3,7 +3,9 @@
         <mat-card-title *ngIf="!createsList">Your lists</mat-card-title>
         <mat-card-content *ngIf="!createsList" fxLayout="row wrap" fxLayoutAlign="space-around center">
             <mat-card *ngFor="let checklis of (userChecklist$ | async)" fxFlex="20">
-                <mat-card-header>{{checklis.name}}</mat-card-header>
+                <mat-card-header>{{checklis.name}} 
+                    <mat-icon class="remove-btn" color="warn" (click)="deleteUserChecklist(checklis.id)">delete</mat-icon>
+                </mat-card-header>
                 <mat-card-actions>
                     <a mat-raised-button color="accent" [routerLink]="['/dashboard', checklis.id]">Check it now!</a> 
                 </mat-card-actions>

@@ -4,14 +4,16 @@ using Checklist.DataLogic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Checklist.DataLogic.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    partial class DefaultContextModelSnapshot : ModelSnapshot
+    [Migration("20200106185142_chnageChecklistImage")]
+    partial class chnageChecklistImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,7 +196,7 @@ namespace Checklist.DataLogic.Migrations
             modelBuilder.Entity("Checklist.DataLogic.Entities.ChecklistImage", b =>
                 {
                     b.HasOne("Checklist.DataLogic.Entities.UserChecklist", null)
-                        .WithMany("ChecklistImages")
+                        .WithMany("ChecklistImage")
                         .HasForeignKey("UserChecklistId");
                 });
 

@@ -9,7 +9,6 @@ namespace Checklist.Abstract.Contract
         public int Id { get; set; }
         public string Name { get; set; }
         public bool Completed { get; set; }
-        public List<ChecklistImageDto> ChecklistImages { get; set; }
         public UserChecklistDto UserChecklist { get; set; }
     }
 }

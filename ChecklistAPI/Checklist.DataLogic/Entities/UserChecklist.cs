@@ -10,5 +10,6 @@ namespace Checklist.DataLogic.Entities
         public List<ChecklistField> Fields { get; set; }
         public DateTime CreatedDate { get; set; }
         public User User { get; set; }
+        public List<ChecklistImage> ChecklistImages { get; set; }
     }
 }

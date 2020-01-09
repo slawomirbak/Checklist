@@ -17,10 +17,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { UploadDialogComponent } from './UI/upload-dialog/upload-dialog.component';
+import { MatDialogModule} from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
-  declarations: [ FooterComponent, MainNavComponent],
+  declarations: [ FooterComponent, MainNavComponent, UploadDialogComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -39,7 +42,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ReactiveFormsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatProgressBarModule
   ],
   exports: [
     MatFormFieldModule,
@@ -58,7 +64,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ReactiveFormsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    UploadDialogComponent,
+    MatProgressBarModule
   ]
 })
 export class SharedModule { }
