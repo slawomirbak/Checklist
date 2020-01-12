@@ -1,5 +1,8 @@
 ﻿using Checklist.DataLogic.Entities;
+using Checklist.DataLogic.Repository.Dapper;
+using Dapper;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,15 +10,19 @@ namespace Checklist.DataLogic.Repository.UserRepository
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public UserRepository(DefaultContext context) : base(context)
+        public UserRepository(DefaultContext context, IDbConnection connection, ISqlQueries sqlQueries) : base(context, connection, sqlQueries, "User")
         {
         }
         public async Task<bool> IsEmailExist(string email)
         {
             return  await _context.Users.AnyAsync(u => u.Email == email.Trim());
         }
-        public async Task<User> GetByEmial(string email)
+        public async Task<User> GetByEmail(string email)
         {
+            //Dapper
+            //return await Connection.QueryFirstAsync<User>(GetSqlQuery(email: email));
+
+            //EF
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Checklist.Abstract.IServices;
 using Checklist.DataLogic;
+using Checklist.DataLogic.Repository.Dapper;
 using Checklist.DataLogic.Repository.UnitOfWork;
 using Checklist.DataLogic.Repository.UserRepository;
 using Checklist.Services.Mapper;
@@ -22,13 +23,13 @@ namespace Checklist.Resolver
     {
         public static void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IDashboardService, DashboardService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDashboardService, DashboardService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<ISqlQueries, SqlQueries>();
         }
 
         public static void AddDatabase(IServiceCollection services, IConfiguration configuration)

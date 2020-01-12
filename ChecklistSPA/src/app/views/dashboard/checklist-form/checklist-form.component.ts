@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewChecked, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { IUserChecklist } from 'src/app/interfaces/IUserChecklist';
@@ -25,12 +25,15 @@ export class ChecklistFormComponent implements OnInit {
   @Output() checklistError: EventEmitter<string> = new EventEmitter<string>();
   @Output() checklistOk: EventEmitter<string> = new EventEmitter<string>();
 
+  @ViewChildren('.test') input;
+
   ngOnInit() {
     this.checklistForm = this.fb.group({
       name: ['', Validators.required],
       fields: this.fb.array([])
     });
   }
+
 
   dropChanges() {
    this.showList.emit(true);

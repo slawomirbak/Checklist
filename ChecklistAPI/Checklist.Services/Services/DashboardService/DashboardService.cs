@@ -30,7 +30,7 @@ namespace Checklist.Services.Services.DashboardService
             var plainResponse = new BasePlainResponse();
             var checklist = _mapper.Map<UserChecklist>(checklistDto);
 
-            var user = await _unitOfWork.userRepository.GetByEmial(userEmail);
+            var user = await _unitOfWork.userRepository.GetByEmail(userEmail);
             checklist.User = user;
             checklist.CreatedDate = DateTime.UtcNow;
             await _unitOfWork.dashboardRepository.Create(checklist);
@@ -42,14 +42,12 @@ namespace Checklist.Services.Services.DashboardService
         public async Task<ChecklistPlainResponse> GetLists(string userEmail)
         {
             var checklistReponse = new ChecklistPlainResponse();
-            var user = await _unitOfWork.userRepository.GetByEmial(userEmail);
+            var user = await _unitOfWork.userRepository.GetByEmail(userEmail);
 
             var userChecklists =  await _unitOfWork.dashboardRepository.GetLists(user.Id);
             foreach (var userChecklist in userChecklists)
             {
-                var test = _mapper.Map<UserChecklistDto>(userChecklist);
                 checklistReponse.Data.Add(_mapper.Map<UserChecklistDto>(userChecklist));
-                
             }
             
             return checklistReponse;

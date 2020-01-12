@@ -1,25 +1,32 @@
 ﻿using Checklist.DataLogic.Entities;
+using Checklist.DataLogic.Repository.Dapper;
+using Dapper;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Checklist.DataLogic.Repository.DashboardRepository
 {
     public class DashboardRepository : BaseRepository<UserChecklist>, IDashboardRepository
     {
-        public DashboardRepository(DefaultContext context): base(context)
+        public DashboardRepository(DefaultContext context,IDbConnection connection, ISqlQueries sqlQueries): base(context, connection, sqlQueries, "UserChecklist")
         {
         }
 
         public async Task<List<UserChecklist>> GetLists(int userId)
         {
-            var userChecklist = await _context.UserChecklists.Where(cl => cl.User.Id == userId).Include(cl => cl.Fields)
-                .Include(cl => cl.ChecklistImages).ToListAsync();
+            //Dapper
+            //var queryTest = GetSqlQuery(paramId: userId);
+            //var userChecklist = await Connection.QueryAsync<UserChecklist>(GetSqlQuery(paramId: userId));
 
-            return userChecklist;
+            var userChecklist = await _context.UserChecklists.Where(cl => cl.User.Id == userId).Include(cl => cl.Fields).Include(cl => cl.ChecklistImages).ToListAsync();
+            return userChecklist.ToList();
         }
         
         public async Task<bool> DoesChecklistBelongToUser(int checklistId, string email)

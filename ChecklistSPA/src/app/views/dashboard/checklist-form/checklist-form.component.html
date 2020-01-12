@@ -1,13 +1,13 @@
 <h2 class="mat-h2">Create new checlist</h2>
-<form [formGroup]="checklistForm" (ngSubmit)="createChecklist(checklistForm.value)">
+<form [formGroup]="checklistForm" (ngSubmit)="createChecklist(checklistForm.value)" (keydown.enter)="$event.preventDefault()">
     <mat-form-field class="full-width">
-        <input matInput placeholder="List name" formControlName="name"/>
+        <input matInput placeholder="List name" formControlName="name" (keydown.enter)="addFormControl()"/>
         <mat-hint>Please write your list name</mat-hint>
         <mat-error *ngIf="hasError('name','required')">Field is required</mat-error>
     </mat-form-field>
     <div formArrayName="fields" *ngFor="let field of fields.controls; let i=index">
         <mat-form-field class="full-width">
-            <input matInput placeholder="List position" [formControlName]="i"/>
+            <input matInput placeholder="List position" class="test" [formControlName]="i" (keydown.enter)="addFormControl()" />
             <mat-hint>Please write list position </mat-hint>
         </mat-form-field>
     </div>

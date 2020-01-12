@@ -49,7 +49,7 @@ namespace Checklist.Services.Services.UserService
             var loginResponse = new LoginPlainResponse();
             loginResponse.IsSuccessful = false;
             loginResponse.ErrorMessage = "Email or password are incorrect. Try again.";
-            var user = await _unitOfWork.userRepository.GetByEmial(credentials.Email);
+            var user = await _unitOfWork.userRepository.GetByEmail(credentials.Email);
             if(user == null)
             {
                 return loginResponse;
