@@ -1,7 +1,17 @@
-<button mat-raised-button apperarina color="accent">Angular material works</button>
-
-
-<mat-form-field>
-    <input matInput placeholder="Input">
-</mat-form-field>
-    
+<form class="login-form" [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Email" autocomplete="email" formControlName="email">
+        <mat-hint>Please write your email</mat-hint>
+        <mat-error *ngIf="hasError('email','email')">Please write valid email</mat-error>
+        <mat-error *ngIf="hasError('email','required')">Field is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Password" autocomplete="current-password" type="password" formControlName="password">
+        <mat-hint>Please write your password</mat-hint>
+        <mat-error *ngIf="hasError('password','required')">Field is required</mat-error>
+    </mat-form-field>
+    <div class="align-center" *ngIf="isSaving">
+        <mat-spinner color="accent" diameter="40"></mat-spinner>
+    </div>
+    <button mat-raised-button color="primary" class="full-width" *ngIf="!isSaving">Log in</button>
+</form>

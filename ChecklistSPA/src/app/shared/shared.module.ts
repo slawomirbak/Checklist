@@ -10,9 +10,20 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { UploadDialogComponent } from './UI/upload-dialog/upload-dialog.component';
+import { MatDialogModule} from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
-  declarations: [ FooterComponent, MainNavComponent],
+  declarations: [ FooterComponent, MainNavComponent, UploadDialogComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -23,7 +34,18 @@ import { MatListModule } from '@angular/material/list';
     MatToolbarModule,
     MatSidenavModule,
     LayoutModule,
-    MatListModule
+    MatListModule,
+    RouterModule,
+    MatCardModule,
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatProgressBarModule
   ],
   exports: [
     MatFormFieldModule,
@@ -34,7 +56,19 @@ import { MatListModule } from '@angular/material/list';
     MatInputModule,
     MatTabsModule,
     MatToolbarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    RouterModule,
+    MatCardModule,
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    UploadDialogComponent,
+    MatProgressBarModule
   ]
 })
 export class SharedModule { }

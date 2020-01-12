@@ -1,0 +1,21 @@
+<h2 class="mat-h2">Create new checlist</h2>
+<form [formGroup]="checklistForm" (ngSubmit)="createChecklist(checklistForm.value)" (keydown.enter)="$event.preventDefault()">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="List name" formControlName="name" (keydown.enter)="addFormControl()"/>
+        <mat-hint>Please write your list name</mat-hint>
+        <mat-error *ngIf="hasError('name','required')">Field is required</mat-error>
+    </mat-form-field>
+    <div formArrayName="fields" *ngFor="let field of fields.controls; let i=index">
+        <mat-form-field class="full-width">
+            <input matInput placeholder="List position" class="test" [formControlName]="i" (keydown.enter)="addFormControl()" />
+            <mat-hint>Please write list position </mat-hint>
+        </mat-form-field>
+    </div>
+    <div class="align-center" *ngIf="isSaving">
+        <mat-spinner color="accent" diameter="40"></mat-spinner>
+    </div>
+    <button mat-raised-button color="primary" type="button"  (click)="addFormControl()" *ngIf="!isSaving">Add position</button>
+    <button mat-raised-button type="submit"  *ngIf="!isSaving">Save</button>
+    <button mat-raised-button color="warn" (click)="dropChanges()" *ngIf="!isSaving">Drop changes and back to your dasboard</button>
+</form>
+

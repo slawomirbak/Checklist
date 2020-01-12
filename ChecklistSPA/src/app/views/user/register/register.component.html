@@ -1,1 +1,50 @@
-<p>register works!</p>
+<form class="register-form" [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm.value)">
+    <mat-form-field class="half-width">
+        <input matInput placeholder="First Name" autocomplete="given-name" formControlName="firstName">
+        <mat-hint>Please write your first name</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="half-width">
+        <input matInput placeholder="Last Name" autocomplete="family-name" formControlName="lastName">
+        <mat-hint>Please write your last name</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Email" autocomplete="email" formControlName="email">
+        <mat-hint>Please write your email</mat-hint>
+        <mat-error *ngIf="hasError('email','email')">Please write valid email</mat-error>
+        <mat-error *ngIf="hasError('email','required')">Field is required</mat-error>
+    </mat-form-field>
+    <div formGroupName="address">
+        <mat-form-field class="half-width">
+            <input matInput placeholder="Country" formControlName="country">
+        </mat-form-field>
+        <mat-form-field class="half-width">
+            <input matInput placeholder="City" formControlName="city">
+        </mat-form-field>
+        <mat-form-field class="half-width">
+            <input matInput placeholder="Street and number" autocomplete="street-address"
+                formControlName="streetAddress" />
+        </mat-form-field>
+        <mat-form-field class="half-width">
+            <input matInput #postalCode placeholder="Postal Code" formControlName="postCode">
+        </mat-form-field>
+    </div>
+    <mat-form-field class="half-width">
+        <input matInput placeholder="Password" autocomplete="current-password" type="password"
+            formControlName="password">
+        <mat-hint>Please write your password</mat-hint>
+        <mat-error *ngIf="hasError('password','required')">Field is required</mat-error>
+        <mat-error *ngIf="hasError('password','minlength')">Password must have at least 6 characters</mat-error>
+        <mat-error *ngIf="hasError('password','secure')">Password must have minimum one capital letter and one number</mat-error>
+    </mat-form-field>
+    <mat-form-field class="half-width">
+        <input matInput placeholder="Repeat password" autocomplete="current-password" type="password"
+            formControlName="verifyPassword" [errorStateMatcher]="verifyPasswordMatcher">
+        <mat-hint>Please repeat your password</mat-hint>
+        <mat-error *ngIf="hasError('verifyPassword','required')">Field is required</mat-error>
+        <mat-error *ngIf="hasErrorCrossField('verifyPassword')">Password must be the same</mat-error>
+    </mat-form-field>
+    <div class="align-center" *ngIf="isSaving">
+        <mat-spinner color="accent" diameter="40"></mat-spinner>
+    </div>
+    <button mat-raised-button color="primary" class="full-width" *ngIf="!isSaving">Register</button>
+</form>
